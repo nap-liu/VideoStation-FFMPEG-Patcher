@@ -8,7 +8,7 @@ dsm_version=$(cat /etc.defaults/VERSION | grep productversion | sed 's/productve
 repo_base_url="https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher"
 version="2.0"
 action="patch"
-branch="main"
+branch="master"
 dependencies=("VideoStation" "ffmpeg" "gstreamer")
 wrappers=("ffmpeg" "gst-launch-1.0")
 
