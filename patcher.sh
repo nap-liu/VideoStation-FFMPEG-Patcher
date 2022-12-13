@@ -5,7 +5,7 @@
 ###############################
 
 dsm_version=$(cat /etc.defaults/VERSION | grep productversion | sed 's/productversion=//' | tr -d '"')
-repo_base_url="https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher"
+repo_base_url="https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher"
 version="2.0"
 action="patch"
 branch="main"
@@ -46,7 +46,7 @@ function root_check() {
 function welcome_motd() {
   info "ffmpeg-patcher v$version"
 
-  motd=$(curl -s -L "$repo_base_url/blob/$branch/motd.txt?raw=true")
+  motd=$(curl -s -L "$repo_base_url/raw/branch/$branch/motd.txt")
   if [ "${#motd}" -ge 1 ]; then
     log "Message of the day"
     echo ""
@@ -93,7 +93,13 @@ function patch() {
       mv -n "$vs_path/bin/$filename" "$vs_path/bin/$filename.orig"
 
       info "Downloading and installing $filename's wrapper..."
-      wget -q -O - "$repo_base_url/blob/$branch/$filename-wrapper.sh?raw=true" > "$vs_path/bin/$filename"
+
+      # repo_base_url="https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher"
+
+      # https://git.js-css.com/github/trackerslist/raw/branch/master/README.md
+      wget -q -O - "$repo_base_url/raw/branch/$branch/$filename-wrapper.sh" > "$vs_path/bin/$filename"
+
+      # wget -q -O - "$repo_base_url/blob/$branch/$filename-wrapper.sh?raw=true" > "$vs_path/bin/$filename"
       chown root:VideoStation "$vs_path/bin/$filename"
       chmod 750 "$vs_path/bin/$filename"
       chmod u+s "$vs_path/bin/$filename"
