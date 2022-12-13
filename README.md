@@ -33,9 +33,9 @@ Huge thanks to [Benjamin Poncet](https://github.com/BenjaminPoncet), [Vincent Fo
 
 ## Usage
 Basic command:  
-`curl https://raw.githubusercontent.com/AlexPresso/VideoStation-FFMPEG-Patcher/main/patcher.sh | bash`   
+`curl https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher/raw/branch/master/patcher.sh | bash`   
 With options:  
-`curl https://raw.githubusercontent.com/AlexPresso/VideoStation-FFMPEG-Patcher/main/patcher.sh | bash -s -- <flags>`
+`curl https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher/raw/branch/master/patcher.sh | bash -s -- <flags>`
 
 | Flags | Required | Description                                                                     | Default |
 |-------|----------|---------------------------------------------------------------------------------|---------|
