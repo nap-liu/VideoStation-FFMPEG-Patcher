@@ -13,7 +13,7 @@ logfile="/tmp/gst-launch-1.0.log"
 #########################
 
 function log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$1] $2" >> $logfile
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$pid] [$1] $2" >> $logfile
 }
 function newline() {
   echo "" >> $logfile
@@ -30,7 +30,7 @@ function handle_error() {
 function endprocess() {
   info "========================================[end gst-launch $pid]"
   newline
-  # rm -f "$stderrfile"
+#   rm -f "$stderrfile"
   exit 1
 }
 
