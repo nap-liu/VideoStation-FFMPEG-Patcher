@@ -129,15 +129,22 @@ function patch() {
   info "Enabling eac3, dts and truehd"
   sed -i -e 's/eac3/3cae/' -e 's/dts/std/' -e 's/truehd/dheurt/' "$libsynovte_path"
 
-  wget -q -O - "$repo_base_url/raw/branch/$branch/dts-patch.tar.gz" > "/tmp/dts-patch.tar.gz"
+
+  info "Downloading gstreamer dts patch"
+  wget -q -O - "$repo_base_url/raw/branch/$branch/dts-patch.tar.gz" > /tmp/dts-patch.tar.gz
 
   # patch CodecPack & VideoStation gstreamer plugin
+  info "Patching gstreamer plugin"
   tar -xzvf /tmp/dts-patch.tar.gz -C $vs_lib_path;
   tar -xzvf /tmp/dts-patch.tar.gz -C $cp_lib_path;
+  info "Patching dts patch done"
 
   # force refresh gstreamer plugin cache
   rm -rf /var/packages/VideoStation/etc/gstreamer-1.0/registry.aarch64.bin
   rm -rf /var/packages/CodecPack/etc/gstreamer-1.0/registry.aarch64.bin
+  info "Refresh gstreamer plugin cache done"
+
+  rm /tmp/dts-patch.tar.gz
 
   restart_packages
 
