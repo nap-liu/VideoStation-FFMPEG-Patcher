@@ -5,8 +5,8 @@
 #########################
 
 pid=$$
-stderrfile="/tmp/gstreamer.stderr"
-logfile="/tmp/gstreamer.log"
+stderrfile="/tmp/gst-launch-1.0.stderr"
+logfile="/tmp/gst-launch-1.0.log"
 
 #########################
 # UTILS
