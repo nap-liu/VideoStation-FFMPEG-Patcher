@@ -14,7 +14,6 @@ Huge thanks to [Benjamin Poncet](https://github.com/BenjaminPoncet), [Vincent Fo
 - DSM 6.2.2-24922 Update 4 (and above)
 - Video Station 2.4.6-1594 (and above)
 - SynoCommunity ffmpeg 4.2.1-23 (and above) ([help](https://synocommunity.com/#easy-install))
-- SynoCommunity gstreamer 1.20.2 (and above)
 
 ## Supported / Unsupported scenarios
 - **[DTS or EAC3 or TrueHD] + [Any non HEVC standard video format]**: ✅
@@ -24,7 +23,6 @@ Huge thanks to [Benjamin Poncet](https://github.com/BenjaminPoncet), [Vincent Fo
 ## Instructions
 - Check that you meet the required [dependencies](https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher#dependencies)
 - Install SynoCommunity ffmpeg ([help](https://synocommunity.com/#easy-install))
-- Install SynoCommunity gstreamer ([help](https://synocommunity.com/#easy-install))
 - If you plan to play HEVC / AAC videos, install Advanced Media Extensions
 - Connect to your NAS using SSH (admin user required) ([help](https://www.synology.com/en-global/knowledgebase/DSM/tutorial/General_Setup/How_to_login_to_DSM_with_root_permission_via_SSH_Telnet))
 - Use the command `sudo -i` to switch to root user
