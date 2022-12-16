@@ -9,17 +9,22 @@ repo_base_url="https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher"
 version="2.0"
 action="patch"
 branch="master"
-dependencies=("VideoStation" "ffmpeg" "gstreamer")
-wrappers=("ffmpeg" "gst-launch-1.0")
+dependencies=("VideoStation" "ffmpeg")
+wrappers=("ffmpeg")
 
 vs_path=/var/packages/VideoStation/target
+vs_lib_path="$vs_path/lib/gstreamer"
 libsynovte_path="$vs_path/lib/libsynovte.so"
-cp_bin_path=/var/packages/CodecPack/target/bin
+
+# CodecPack path
+cp_path=/var/packages/CodecPack/target
+cp_bin_path="$cp_path/bin"
+cp_lib_path="$cp_path/lib/gstreamer"
+
 cp_to_patch=(
   "ffmpeg41:ffmpeg"
   "ffmpeg27:ffmpeg"
   "ffmpeg33:ffmpeg"
-  "gst-launch-1.0:gst-launch-1.0"
 )
 
 ###############################
@@ -94,13 +99,10 @@ function patch() {
 
       info "Downloading and installing $filename's wrapper..."
 
-      # repo_base_url="https://git.js-css.com/nap/VideoStation-FFMPEG-Patcher"
-
-      # https://git.js-css.com/github/trackerslist/raw/branch/master/README.md
       wget -q -O - "$repo_base_url/raw/branch/$branch/$filename-wrapper.sh" > "$vs_path/bin/$filename"
 
-      # wget -q -O - "$repo_base_url/blob/$branch/$filename-wrapper.sh?raw=true" > "$vs_path/bin/$filename"
       chown root:VideoStation "$vs_path/bin/$filename"
+
       chmod 750 "$vs_path/bin/$filename"
       chmod u+s "$vs_path/bin/$filename"
     fi
@@ -126,6 +128,16 @@ function patch() {
 
   info "Enabling eac3, dts and truehd"
   sed -i -e 's/eac3/3cae/' -e 's/dts/std/' -e 's/truehd/dheurt/' "$libsynovte_path"
+
+  wget -q -O - "$repo_base_url/raw/branch/$branch/dts-patch.tar.gz" > "/tmp/dts-patch.tar.gz"
+
+  # patch CodecPack & VideoStation gstreamer plugin
+  tar -xzvf /tmp/dts-patch.tar.gz -C $vs_lib_path;
+  tar -xzvf /tmp/dts-patch.tar.gz -C $cp_lib_path;
+
+  # force refresh gstreamer plugin cache
+  rm -rf /var/packages/VideoStation/etc/gstreamer-1.0/registry.aarch64.bin
+  rm -rf /var/packages/CodecPack/etc/gstreamer-1.0/registry.aarch64.bin
 
   restart_packages
 
