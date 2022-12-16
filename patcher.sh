@@ -10,21 +10,24 @@ version="2.0"
 action="patch"
 branch="master"
 dependencies=("VideoStation" "ffmpeg")
-wrappers=("ffmpeg")
+wrappers=("ffmpeg" "gstreamer")
 
 vs_path=/var/packages/VideoStation/target
-vs_lib_path="$vs_path/lib/gstreamer"
+vs_lib_path="$vs_path/lib"
 libsynovte_path="$vs_path/lib/libsynovte.so"
 
 # CodecPack path
 cp_path=/var/packages/CodecPack/target
 cp_bin_path="$cp_path/bin"
-cp_lib_path="$cp_path/lib/gstreamer"
+cp_lib_path="$cp_path/lib"
+
+patch_package="gstreamer-patch.tar.gz"
 
 cp_to_patch=(
   "ffmpeg41:ffmpeg"
   "ffmpeg27:ffmpeg"
   "ffmpeg33:ffmpeg"
+  "gst-launch-1.0:gst-launch-1.0"
 )
 
 ###############################
@@ -129,22 +132,21 @@ function patch() {
   info "Enabling eac3, dts and truehd"
   sed -i -e 's/eac3/3cae/' -e 's/dts/std/' -e 's/truehd/dheurt/' "$libsynovte_path"
 
+  info "Downloading gstreamer patch"
+  wget -q -O - "$repo_base_url/raw/branch/$branch/$patch_package" > "/tmp/$patch_package"
 
-  info "Downloading gstreamer dts patch"
-  wget -q -O - "$repo_base_url/raw/branch/$branch/dts-patch.tar.gz" > /tmp/dts-patch.tar.gz
-
-  # patch CodecPack & VideoStation gstreamer plugin
-  info "Patching gstreamer plugin"
-  tar -xzvf /tmp/dts-patch.tar.gz -C $vs_lib_path;
-  tar -xzvf /tmp/dts-patch.tar.gz -C $cp_lib_path;
-  info "Patching dts patch done"
+  # patch VideoStation gstreamer plugin
+  info "Patching gstreamer"
+  tar -xzvf "/tmp/$patch_package" -C $vs_lib_path;
+  # tar -xzvf "/tmp/$patch_package" -C $cp_lib_path;
+  info "Patching gstreamer done"
 
   # force refresh gstreamer plugin cache
   rm -rf /var/packages/VideoStation/etc/gstreamer-1.0/registry.aarch64.bin
-  rm -rf /var/packages/CodecPack/etc/gstreamer-1.0/registry.aarch64.bin
+  # rm -rf /var/packages/CodecPack/etc/gstreamer-1.0/registry.aarch64.bin
   info "Refresh gstreamer plugin cache done"
 
-  rm /tmp/dts-patch.tar.gz
+  rm "/tmp/$patch_package"
 
   restart_packages
 
