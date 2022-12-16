@@ -133,7 +133,7 @@ function patch() {
   info "Enabling eac3, dts and truehd"
   sed -i -e 's/eac3/3cae/' -e 's/dts/std/' -e 's/truehd/dheurt/' "$libsynovte_path"
 
-  if [[ -d "$vs_lib_path/patch" ]]; then
+  if [[ ! -d "$vs_lib_path/patch" ]]; then
     info "Downloading gstreamer patch"
     wget -q -O - "$repo_base_url/raw/branch/$branch/$patch_package" > "/tmp/$patch_package"
 
