@@ -30,6 +30,7 @@ function handle_error() {
 function endprocess() {
   info "========================================[end ffmpeg $pid]"
   newline
+  kill -TERM "$child" 2>/dev/null
 #   rm -f "$stderrfile"
   exit 1
 }
@@ -45,6 +46,7 @@ newline
 info "========================================[start ffmpeg $pid]"
 info "DEFAULT_ARGS: $*"
 
-/var/packages/ffmpeg/target/bin/ffmpeg "$@" 2> $stderrfile
+/var/packages/ffmpeg/target/bin/ffmpeg "$@" 2> $stderrfile &
 
-endprocess
+child=$!
+wait "$child"
