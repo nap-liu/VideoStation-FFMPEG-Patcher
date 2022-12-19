@@ -4,6 +4,15 @@
   <img src="https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher/blob/main/banner.png?raw=true" height=200px alt="Banner">
 </p>
 
+
+# [rtd1296-ds6.2.4] Branch Only For RTD1296 Model enable DTS, EAC3, TrueHD hardware decoding
+
+I only tested it on DS218Play model and it works perfectly  
+Follow the same method to get other models to work if anyone has time  
+Here is the process I logged [Patch DS218Play](https://blog.js-css.com/topics/2022/12/16/229/)
+
+----
+
 This patcher is designed to continue the work of [Benjamin Poncet](https://github.com/BenjaminPoncet), to enable **DTS**, **EAC3** and **TrueHD** support to Synology VideoStation, by replacing the original ffmpeg and gstreamer files by a wrapper using SynoCommunity packages.
 
 Huge thanks to [Benjamin Poncet](https://github.com/BenjaminPoncet), [Vincent Fortier](https://github.com/th0ma7), [SynoCommunity](https://github.com/SynoCommunity) and all contributors.
