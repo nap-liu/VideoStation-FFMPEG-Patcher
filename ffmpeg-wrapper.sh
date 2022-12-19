@@ -8,12 +8,15 @@ pid=$$
 stderrfile="/tmp/ffmpeg.stderr"
 logfile="/tmp/ffmpeg.log"
 
+echo '' > stderrfile;
+echo '' > logfile;
+
 #########################
 # UTILS
 #########################
 
 function log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$pid] [$1] $2" > $logfile
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$pid] [$1] $2" >> $logfile
 }
 function newline() {
   echo "" >> $logfile

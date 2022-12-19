@@ -8,12 +8,15 @@ pid=$$
 stderrfile="/tmp/gst-launch-1.0.stderr"
 logfile="/tmp/gst-launch-1.0.log"
 
+echo '' > stderrfile;
+echo '' > logfile;
+
 #########################
 # UTILS
 #########################
 
 function log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$pid] [$1] $2" > $logfile
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$pid] [$1] $2" >> $logfile
 }
 function newline() {
   echo "" >> $logfile
