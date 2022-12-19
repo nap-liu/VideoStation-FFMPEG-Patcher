@@ -30,7 +30,7 @@ function handle_error() {
 function endprocess() {
   info "========================================[end gst-launch $pid]"
   newline
-  kill -TERM "$child" 2>/dev/null
+  kill -TERM $child 2>/dev/null
 #   rm -f "$stderrfile"
   exit 1
 }
@@ -50,6 +50,6 @@ export LD_LIBRARY_PATH=/var/packages/VideoStation/target/lib/patch/lib/
 export GST_PLUGIN_PATH=/var/packages/VideoStation/target/lib/patch/plugins/
 
 /var/packages/VideoStation/target/bin/gst-launch-1.0.orig "$@" 2> $stderrfile &
-
 child=$!
-wait "$child"
+info "gst-launch pid: $child"
+wait $child
