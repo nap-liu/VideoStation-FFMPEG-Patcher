@@ -133,6 +133,12 @@ function patch() {
   info "Enabling eac3, dts and truehd"
   sed -i -e 's/eac3/3cae/' -e 's/dts/std/' -e 's/truehd/dheurt/' "$libsynovte_path"
 
+  if [[ ! -f "$vs_path/etc/gst-omx.conf.orig" ]]; then
+    info "Enabling gstreamer OpenMAX H.265 Video Decoder"
+    mv -n "$vs_path/etc/gst-omx.conf" "$vs_path/etc/gst-omx.conf.orig"
+    cp "$cp_path/etc/gst-omx.conf" "$vs_path/etc/gst-omx.conf"
+  fi
+
   if [[ ! -d "$vs_lib_path/patch" ]]; then
     info "Downloading gstreamer patch"
     wget -q -O - "$repo_base_url/raw/branch/$branch/$patch_package" > "/tmp/$patch_package"
@@ -169,6 +175,11 @@ function unpatch() {
   mv -T -f "$libsynovte_path.orig" "$libsynovte_path"
 
   find "$vs_path/bin" -type f -name "*.orig" | while read -r filename; do
+    info "Restoring VideoStation's $filename"
+    mv -T -f "$filename" "${filename::-5}"
+  done
+
+  find "$vs_path/etc" -type f -name "*.orig" | while read -r filename; do
     info "Restoring VideoStation's $filename"
     mv -T -f "$filename" "${filename::-5}"
   done
