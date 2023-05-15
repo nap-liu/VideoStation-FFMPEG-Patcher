@@ -155,13 +155,14 @@ function patch() {
     info "Patching gstreamer done"
 
     # force refresh gstreamer plugin cache
-    rm -rf /var/packages/VideoStation/etc/gstreamer-1.0/registry.aarch64.bin
-    # rm -rf /var/packages/CodecPack/etc/gstreamer-1.0/registry.aarch64.bin
+    # rm -rf /var/packages/VideoStation/etc/gstreamer-1.0/registry.aarch64.bin
+    rm -rf /var/packages/CodecPack/etc/gstreamer-1.0/registry.aarch64.bin
     info "Refresh gstreamer plugin cache done"
 
     rm "/tmp/$patch_package"
+  else
+    info "gstreamer is patched skip patch"
   fi
-
 
   restart_packages
 
