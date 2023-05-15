@@ -133,12 +133,12 @@ function patch() {
   info "Enabling eac3, dts and truehd"
   sed -i -e 's/eac3/3cae/' -e 's/dts/std/' -e 's/truehd/dheurt/' "$libsynovte_path"
 
-  if [[ ! -f "$vs_path/etc/gstomx.conf.orig" ]]; then
-    info "Enabling gstreamer OpenMAX H.265 Video Decoder"
-    mv -n "$vs_path/etc/gstomx.conf" "$vs_path/etc/gstomx.conf.orig"
-    cp "$cp_path/etc/gstomx.conf" "$vs_path/etc/gstomx.conf"
-    chown VideoStation:VideoStation "$cp_path/etc/gstomx.conf"
-  fi
+#  if [[ ! -f "$vs_path/etc/gstomx.conf.orig" ]]; then
+#    info "Enabling gstreamer OpenMAX H.265 Video Decoder"
+#    mv -n "$vs_path/etc/gstomx.conf" "$vs_path/etc/gstomx.conf.orig"
+#    cp "$cp_path/etc/gstomx.conf" "$vs_path/etc/gstomx.conf"
+#    chown VideoStation:VideoStation "$cp_path/etc/gstomx.conf"
+#  fi
 
   if [[ ! -d "$vs_lib_path/patch" ]]; then
     info "Downloading gstreamer patch"

@@ -52,7 +52,7 @@ info "DEFAULT_ARGS: $*"
 export LD_LIBRARY_PATH=/var/packages/VideoStation/target/lib/patch/lib/
 export GST_PLUGIN_PATH=/var/packages/VideoStation/target/lib/patch/plugins/
 
-/var/packages/VideoStation/target/bin/gst-launch-1.0.orig "$@" 2> $stderrfile &
+/var/packages/CodecPack/target/pack/bin/gst-launch-1.0.orig "$@" 2> $stderrfile &
 child=$!
 info "gst-launch pid: $child"
 wait $child
